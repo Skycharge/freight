@@ -27,6 +27,9 @@ CACHE="off"
 # shellcheck disable=SC2034
 SYMLINKS="off"
 
+# Force re-adding files which were already added to the repo
+REWRITE="no"
+
 # Source all existing configuration files from lowest- to highest-priority.
 PREFIX="$(dirname "$(dirname "$0")")"
 if [ "$PREFIX" = "/usr" ]; then
@@ -50,6 +53,13 @@ if [ "$CONF" ]; then
         echo "# [freight] $CONF does not exist" >&2
         exit 1
     fi
+fi
+
+# Set force flag according to the config
+if [ "$REWRITE" = "yes" ]; then
+    FORCE_FLAG="-f";
+else
+    FORCE_FLAG="";
 fi
 
 # Normalize directory names.

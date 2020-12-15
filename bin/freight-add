@@ -70,7 +70,7 @@ cd "$VARLIB"
 # PATHNAME.  The first two are given fairly directly to ln(1); the final one
 # is used to create appropriate success or failure messages.
 add() {
-    if ln "$TMP/$1" "$2/$1" 2>"$TMP/ln"; then
+    if ln $FORCE_FLAG "$TMP/$1" "$2/$1" 2>"$TMP/ln"; then
         echo "# [freight] added $3 to $2${4+" as "}$4" >&2
     else
         if grep -q "File exists" "$TMP/ln"; then

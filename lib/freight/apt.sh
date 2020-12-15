@@ -337,13 +337,13 @@ EOF
     # Link this package into the pool.
     POOL="pool/$DIST/$COMP/$PREFIX/$SOURCE"
     mkdir -p "$VARCACHE/$POOL"
-    if [ ! -f "$VARCACHE/$POOL/$FILENAME" ]; then
+    if [ ! -z "$FORCE_FLAG" ] || [ ! -f "$VARCACHE/$POOL/$FILENAME" ]; then
         if [ "$PACKAGE" != "$FILENAME" ]; then
             echo "# [freight] adding $PACKAGE to pool (as $FILENAME)" >&2
         else
             echo "# [freight] adding $PACKAGE to pool" >&2
         fi
-        ln "$DISTCACHE/.refs/$COMP/$PACKAGE" "$VARCACHE/$POOL/$FILENAME"
+        ln $FORCE_FLAG "$DISTCACHE/.refs/$COMP/$PACKAGE" "$VARCACHE/$POOL/$FILENAME"
     fi
 
     # Build a list of the one-or-more `Packages` files to append with
